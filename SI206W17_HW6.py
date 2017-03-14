@@ -124,16 +124,17 @@ print("\n\n***** Problem 7 *****")
 # Create a list of tuples wherein each tuple has a student's name and productivity value. Save the list of tuples in a variable called names_and_productivities. To do this, you should use a list comprehension (you may also use the zip function, and you may use any variables you have already created).
 
 ## But be careful that if you use answers from previous problems, you use the LISTs you generated, so that all your tests can still pass and you avoid confusion!
-
+names_and_productivities = [(tup[0],tup[1]) for tup in zip(names, prod_list)]
 
 
 ## [PROBLEM 8]
 print("\n\n***** Problem 8 *****")
 # Use the Python filter function to select the subset of programmers who have names with 5 or more characters. (i.e. ["Albert","Dinesh","Euijin"]) Your result should be an filter object that points to Student instances. Save that filter iterator in a variable called long_names.
-
+long_names = filter(lambda x: len(x.name) >= 5, programmers)
 
 
 ## Then write code to cast the value of long_names to a list and save it in the variable long_names_list. 
+long_names_list = list(long_names)
 
 
 
@@ -143,6 +144,7 @@ print("\n\n***** Problem 9 *****")
 # Use a list comprehension to generate a LIST of just the names of those Student instances whose name is longer than their seniority (i.e., ["Albert", "Mai", "Dinesh", "Euijin"]). Assign it to a variable called names_with_not_too_much_seniority.
 
 ## Note that you can use another list you have already created for this problem.
+names_with_not_too_much_seniority = [tup[0] for tup in student_tups_list if len(tup[0]) > tup[1]]
 
 
 
@@ -163,9 +165,16 @@ print("\n\n***** Problem 10 *****")
 ## We have provided files samplehw6_1.txt and samplehw6_2.txt for your use for this problem, which hopefully you have downloaded, so you can test with those file names! The test below also relies upon these files. Of course, you could also create other files for testing.
 
 # Define readfiles (make sure to close the file reference in the right place)
-
+def readfiles(filenames):
+    for f in filenames:
+        fileref = open(f)
+        for line in fileref:
+            yield line
+        fileref.close()
 
 # Define len_check
+def len_check(lines):
+    return(line for line in lines if len(line) > 40)
 
 
 # Define main_filterer
